@@ -66,7 +66,7 @@ public abstract class AggregateRoot<TId> extends Entity<TId> {
     public AggregateRoot(TId id, ArrayList<DomainEvent> events) {
         this(id);
         isPlaying = true;
-        for (DomainEvent evt : this.events) {
+        for (DomainEvent evt : events) {
             when(evt);
             originalVersion++;
             version++;
