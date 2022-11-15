@@ -22,10 +22,10 @@ public abstract class AggregateRoot<TId> extends Entity<TId> {
     /**
      * Indication whether the aggregate is replaying events (true) or not (false).
      */
-    private boolean isRelaying = false;
+    private boolean isPlaying = false;
 
-    protected boolean isRelaying() {
-        return isRelaying;
+    protected boolean isPlaying() {
+        return isPlaying;
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class AggregateRoot<TId> extends Entity<TId> {
         super(id);
         originalVersion = 0;
         version = 0;
-        events = new ArrayList<DomainEvent>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -65,13 +65,13 @@ public abstract class AggregateRoot<TId> extends Entity<TId> {
      */
     public AggregateRoot(TId id, ArrayList<DomainEvent> events) {
         this(id);
-        isRelaying = true;
+        isPlaying = true;
         for (DomainEvent evt : this.events) {
             when(evt);
             originalVersion++;
             version++;
         }
-        isRelaying = false;
+        isPlaying = false;
     }
 
     /**
